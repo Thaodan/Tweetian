@@ -46,6 +46,29 @@ AbstractUserPage {
         loadingRect.visible = true
     }
 
+
+    
+    PullDownMenu {
+        MenuItem {
+            text: qsTr("%1 Profile").arg("<font color=\"DarkGray\">@" + screenName + "</font>")
+            onClicked: pageStack.push(Qt.resolvedUrl("UserPage.qml"), {screenName: screenName})
+            visible: screenName !== settings.userScreenName
+        }        
+        MenuItem {
+            text: qsTr("New Tweet")
+            onClicked: pageStack.push(Qt.resolvedUrl("NewTweetPage.qml"), {type: "New"})
+            visible: screenName !== settings.userScreenName
+        }
+        
+        MenuItem {
+            text: qsTr("Send Direct Message")
+            onClicked: pageStack.push(Qt.resolvedUrl("NewTweetPage.qml"), {type: "New", screenName: screenName})
+            visible: screenName !== settings.userScreenName
+        }
+    }
+    
+    
+    
     WorkerScript {
         id: userTweetsParser
         source: "../WorkerScript/TweetsParser.js"
